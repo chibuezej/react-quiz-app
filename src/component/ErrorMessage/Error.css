@@ -1,0 +1,11 @@
+.Error{
+    width: 100%;
+    padding: 10;
+    margin-bottom: 10;
+    border-radius: 5;
+    background-color: orangered;
+    text-align: center;
+    color: white;
+    text-transform: capitalize;
+
+}
