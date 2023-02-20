@@ -1,6 +1,5 @@
-import { CircularProgress } from "@material-ui/core";
+
 import { useEffect, useState } from "react";
-import Question from "../../Question/Question";
 import './Quiz.css'
 
 function Quiz ({name, score, questions, setQuestions, setScore}){
@@ -11,28 +10,57 @@ function Quiz ({name, score, questions, setQuestions, setScore}){
 
     
 
-    useEffect(() => {
+    // useEffect(() => {
+
+    //   // setOptions(questions && 
+    //   //   handleShuffle([...questions]))
+    //   // handleShuffle([questions[currQues]?.correct_answer,
+    //   //   ...questions[currQues]?.incorect_answers]))
+    
       
-       //not getting my options  
-        setOptions(questions && 
-          handleShuffle([questions[currQues]?.correct_answer,
-            ...questions[currQues]?.incorect_answers]))
+    //    //not getting my options  
+    //     setOptions(questions && 
+    //       handleShuffle([questions[currQues]?.correct_answer,
+    //         ...questions[currQues]?.incorect_answers]))
         
-    }, [questions])
-console.log(options)
+    // }, [questions])
+// console.log(options, "options")
+console.log(questions, "questions")
 //i.e when i console log my options 
     
 
 
     function handleShuffle(optionss){
-        return optionss.sort(() => Math.random() - 0.5)
+      console.log(questions.sort(() => Math.random() - 0.5))
+
+        // console.log(optionss.sort(() => Math.random() - 0.5), "random")
     }
 
+
+// handleShuffle([...questions])
 
     return(
         <div>
             
             <span className="subtitle">Welcome, {name}</span>
+
+             <div> {questions && questions?.map((item) => (
+              // <h1> {item.catego ry}</h1>
+              <div  style={{paddingLeft: "20px"}} >
+                <ul>
+
+                
+                  
+            Options: {item.incorrect_answers.map((inc) => (
+                <li>
+<button>{inc}</button>
+{console.log(inc, "hey")}
+</li>
+            ) )}
+                </ul>
+              <h6>Answers: {item.correct_answer}</h6>
+</div>
+            ) )}</div>
            
         </div>
     )
