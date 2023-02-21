@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Question from "../../Question/Question";
 import './Quiz.css'
 
-function Quiz ({name, score, questions, setQuestions, setScore}){
+function Quiz ({name, score, questions,setScore}){
     const [options, setOptions] = useState();
     const [currQues, setCurrQues] = useState(0)
     //currQues is to be set to zero 
@@ -17,7 +17,8 @@ function Quiz ({name, score, questions, setQuestions, setScore}){
             ...questions[currQues]?.incorrect_answers,
           ])
       );
-    }, [currQues, questions]);
+    }, [questions, currQues]);
+    console.log(options)
 
     function handleShuffle (options) {
       return options.sort(() => Math.random() - 0.5);
@@ -34,6 +35,7 @@ function Quiz ({name, score, questions, setQuestions, setScore}){
         <>
           <div className="quizInfo">
             <span>{questions[currQues].category}</span>
+            
             <span>
               {/* {questions[currQues].difficulty} */}
               Score : {score}
@@ -48,7 +50,7 @@ function Quiz ({name, score, questions, setQuestions, setScore}){
             correct={questions[currQues]?.correct_answer}
             score={score}
             setScore={setScore}
-            setQuestions={setQuestions}
+            
           />
         </>
       ) : (

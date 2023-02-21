@@ -1,28 +1,40 @@
 import { Button } from "@material-ui/core";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import './Question.css'
 
-function Question({currQues, setCurrQues,questions, options, correct, score, setScore, setQuestions }) {
+function Question({currQues, setCurrQues,questions, options, correct, score, setScore, }) {
 
 
     const [selected, setSelected] = useState()
     const [error, setError] = useState(false)
+    const navigate = useNavigate()
 
-    function handleSelect(item){
-        if (selected === item && selected === correct){
+    function handleSelect(i){
+        if (selected === i && selected === correct){
             return "select"
         }
-        else if (selected === item && selected !== correct){
+        else if (selected === i && selected !== correct){
             return "wrong"
-        }else if (item === correct){
+        }else if (i === correct){
             return "select"
         }
     }
-    function handleCheck(item){
-        setSelected(item)
-        if(item === correct) setScore(score +1)
+    function handleCheck(i){
+        setSelected(i)
+        if(i === correct) setScore(score +1)
         setError(false)
+    }
+    function handleNext(){
+    if(currQues > 8){
+        navigate("/result")
+    } else if (selected){
+        setCurrQues(currQues +1)
+        setSelected()
+    } else {
+        setError("set error")
+    }
     }
     return(
         <div className="question">
@@ -31,9 +43,9 @@ function Question({currQues, setCurrQues,questions, options, correct, score, set
                 <h2>{questions[currQues].question}</h2>
 
                 <div className="options">
-                {error && <ErrorMessage>Please fill all the fields</ErrorMessage>}
-                    {options && options.map((item) => 
-                    <button onClick={handleCheck} className={`singleOption ${selected && handleSelect(item)}`} key={item} disabled={selected}>{item}</button>)}
+                {error && <ErrorMessage>okay you can take a guess</ErrorMessage>}
+                    {options && options.map((i) => 
+                    <button onClick={handleCheck} className={`singleOption ${selected && handleSelect(i)}`} key={i} disabled={selected}>{i}</button>)}
                 
                 </div>
                 <div className="controls">
@@ -48,6 +60,8 @@ function Question({currQues, setCurrQues,questions, options, correct, score, set
                      variant="contained"
                      color="primary"
                      size="large"
+                     style={{width: 185}}
+                     onClick={handleNext}
                     >Next Question</Button>
                 </div>
             </div>
